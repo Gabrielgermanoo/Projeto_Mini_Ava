@@ -1,0 +1,55 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% block titulo %}
+<title>Listar Campos</title>
+{% endblock %}
+
+{% block conteudo %}
+<h3>Lista de Comprovantes registrados
+    <a class="btn btn-primary btn-sm float-end" href="{% url 'cadastrar-comprovante' %}"><i
+            class="bi bi-plus-circle"></i></a>
+</h3>
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Progressão</th>
+            <th>Atividade</th>
+            <th>Quantidade</th>
+            <th>Data</th>
+            <th>Data_Final</th>
+            <th>Usuário</th>
+            <th>Arquivo</th>
+            <th>Opções</th>
+        </tr>
+        {% for comprovante in object_list %}
+        <tr>
+            {% if comprovante %}
+            <td>{{ comprovante.progressao }}</td>
+            <td>{{ comprovante.atividade }}</td>
+            <td>{{ comprovante.quantidade }}</td>
+            <td>{{ comprovante.data }}</td>
+            <td>{{ comprovante.data_final }}</td>
+            <td>{{ comprovante.usuario }}</td>
+            <td><a href="{{ comprovante.arquivo.url }}">Ver</a></td>
+            {% else %}
+            &nbsp;
+            {% endif %}
+            <td>
+                <a href="{% url 'editar-comprovante' comprovante.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
+                        class="bi bi-pencil"></i></a>
+                <a href="{% url 'excluir-comprovante' comprovante.pk %}" class="btn btn-danger btn-sm"
+                    title="Excluir"><i class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum comprovante registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+{% block destaque %}
+
+{% endblock %}

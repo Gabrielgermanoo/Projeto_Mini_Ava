@@ -1,0 +1,80 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% block titulo %}
+<title>Listar Campos</title>
+{% endblock %}
+
+{% block conteudo %}
+<h3>Lista de Campus registrados
+    <a class="btn btn-primary btn-sm float-end" href="{% url 'cadastrar-campus' %}" title="Adicionar Campus"><i
+            class="bi bi-plus-circle"></i></a>
+</h3>
+<hr>
+
+<form action="?" method="GET">
+    <input type="text" name="cidade" id="" value="{{ request.GET.cidade }}" class="p-1 border"
+        placeholder="Buscar cidade">
+
+    <button type="submit" class="btn btn-info">Buscar</button>
+    <a href="{% url 'listar-campus' %}" class="btn btn-light">limpar</a>
+</form>
+<hr>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Cidade</th>
+            <th>Endereço</th>
+            <th>Telefone</th>
+            <th>Opções</th>
+        </tr>
+        {% for campus in object_list %}
+        <tr>
+            {% if campus %}
+            <td>{{ campus.cidade }}</td>
+            <td>{{ campus.endereco }}</td>
+            <td>{{ campus.telefone }}</td>
+            {% else %}
+            &nbsp;
+            {% endif %}
+            <td>
+                <a href="{% url 'editar-campus' campus.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
+                        class="bi bi-pencil"></i></a>
+                <a href="{% url 'excluir-campus' campus.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i
+                        class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhum campus registrado.</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+            {% if request.GET.cidade %}
+            <li class="page-item"><a href="?page=1&cidade={{request.GET.cidade}}" class="page-link">Primeira</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}&cidade={{request.GET.cidade}}">Anterior</a></li>
+            {% else %}
+            <li class="page-item"><a href="?page=1" class="page-link">Primeira</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Anterior</a></li>
+            {% endif %}
+        {% endif %}
+        <li class="page-item">
+            <span class="page-link">Página: {{page_obj.number}} de {{page_obj.paginator.num_pages}}</span>
+        </li>
+        {% if page_obj.has_next %}
+            {% if request.GET.cidade %}
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}&cidade={{request.GET.cidade}}">Próxima</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.paginator.num_pages}}&cidade={{request.GET.cidade}}">Última &raquo;</a></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.next_page_number}}">Próxima</a></li>
+            <li class="page-item"><a class="page-link" href="?page={{page_obj.paginator.num_pages}}">Última &raquo;</a></li>
+        {% endif %}        
+        {% endif %}
+    </ul>
+</div>
+{% endblock %}
+{% block destaque %}
+
+{% endblock %}

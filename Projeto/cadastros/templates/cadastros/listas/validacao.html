@@ -1,0 +1,51 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% block titulo %}
+<title>Listar Campos</title>
+{% endblock %}
+
+{% block conteudo %}
+<h3>Lista de Validações registradas
+    <a class="btn btn-primary btn-sm float-end" href="{% url 'cadastrar-validacao' %}"><i
+            class="bi bi-plus-circle"></i></a>
+</h3>
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Comprovante</th>
+            <th>Validado em</th>
+            <th>Validado por</th>
+            <th>Quantidade</th>
+            <th>Justificativa</th>
+            <th>Opções</th>
+        </tr>
+        {% for validacao in object_list %}
+        <tr>
+            {% if validacao %}
+            <td>{{ validacao.comprovante }}</td>
+            <td>{{ validacao.validado_em }}</td>
+            <td>{{ validacao.validado_por }}</td>
+            <td>{{ validacao.quantidade }}</td>
+            <td>{{ validacao.justificativa }}</td>
+            {% else %}
+            &nbsp;
+            {% endif %}
+            <td>
+                <a href="{% url 'editar-validacao' validacao.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
+                        class="bi bi-pencil"></i></a>
+                <a href="{% url 'excluir-validacao' validacao.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i
+                        class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhuma validação registrada.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+{% block destaque %}
+
+{% endblock %}

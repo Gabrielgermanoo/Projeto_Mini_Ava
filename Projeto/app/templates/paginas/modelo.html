@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'asserts/img/favicon.ico' %}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+    {% block titulo %}
+    <title>Modelo</title>
+    {% endblock %}
+
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/r-2.3.0/sc-2.0.7/sp-2.0.2/datatables.min.css" />
+
+
+</head>
+
+<body>
+    {% block menu %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'index' %}"> <img src="{% static 'asserts/img/logooo.png' %}"
+                    class="img-fluid" style="height: 40px; width: 35px;"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" aria-current="page" href="{% url 'index' %}"><i
+                                class="bi bi-house-fill"></i> Home</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false"><i class="bi bi-plus-square-fill"></i>
+                            Cadastros
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'listar-campos' %}"><i class="bi bi-1-square"></i>
+                                    Campos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-atividades' %}"><i
+                                        class="bi bi-2-square"></i> Atividades</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-campus' %}"><i class="bi bi-3-square"></i>
+                                    Campus</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-classes' %}"><i
+                                        class="bi bi-4-square"></i> Classes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-status' %}"><i class="bi bi-5-square"></i>
+                                    Status</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-comprovante' %}"><i
+                                        class="bi bi-6-square"></i>
+                                    Comprovante</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-progressao' %}"><i
+                                        class="bi bi-7-square"></i>
+                                    Progressão</a></li>
+                            <li><a class="dropdown-item" href="{% url 'listar-validacao' %}"><i
+                                        class="bi bi-8-square"></i>
+                                    Validações</a></li>
+                        </ul>
+                    </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'about' %}"><i class="bi bi-info-circle-fill"></i>
+                            Sobre</a>
+                    </li>
+                </ul>
+                {% if request.user.is_authenticated %}
+                <li class="d-flex nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false"><i class="bi bi-person-circle"></i>
+                        {{ request.user }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'atualizar-dados' %}"><i
+                                    class="bi bi-info-circle"></i>
+                                Meus dados</a></li>
+                        <li><a class="dropdown-item" href="{% url 'listar-atividades' %}"><i class="bi bi-lock"></i>
+                                Alterar senha</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i>
+                                Sair</a></li>
+                    </ul>
+                </li>
+                {% else %}
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'registrar' %}"><i class="bi bi-pencil"></i>
+                            Registrar-se</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="{% url 'login' %}"><i class="bi bi-box-arrow-in-right"></i>
+                            Login</a>
+                    </li>
+                </ul>
+                {% endif %}
+
+            </div>
+        </div>
+    </nav>
+    {% endblock %}
+    {% block destaque %}
+    {% endblock %}
+    <br>
+    <div class="container">
+        {% block conteudo %}
+        <h3>Website Base</h3>
+        {% endblock %}
+    </div>
+    {% block footer %}
+    <div class="container">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom border-info pb-3 mb-3">
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+                <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            </ul>
+            <p class="text-center text-muted">&copy; Desenvolvido por Gabriel Germano</p>
+        </footer>
+    </div>
+    {% endblock %}
+
+    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="{% static 'js/bootstrap.bundle.js' %}"></script>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+    <script type="text/javascript"
+        src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.12.1/b-2.2.3/b-html5-2.2.3/b-print-2.2.3/cr-1.5.6/date-1.1.2/r-2.3.0/sc-2.0.7/sp-2.0.2/datatables.min.js"></script>
+
+    {% block scripts %}
+
+    {% endblock %}
+</body>
+
+</html>

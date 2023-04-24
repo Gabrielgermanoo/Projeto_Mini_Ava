@@ -1,0 +1,27 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+
+
+{% block titulo %}
+<title>Index</title>
+{% endblock %}
+
+{% block conteudo %}
+<h3>Página Inicial</h3>
+<hr class="featurette-divider border-primary">
+{% if request.user.is_authenticated %}
+<p>Bem vindo, <a href="{% url 'atualizar-dados' %}" class="text-info">{{ request.user }}</a></p>
+
+{% else %}
+<p>Bem vindo, ao site de registro de atividades!</p>
+
+{% endif %}
+<div class="container">
+
+</div>
+
+
+<!-- /END THE FEATURETTES -->
+
+</div>
+{% endblock %}

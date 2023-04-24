@@ -1,0 +1,48 @@
+{% extends 'paginas/modelo.html' %}
+{% load static %}
+{% block titulo %}
+<title>Listar Campos</title>
+{% endblock %}
+
+{% block conteudo %}
+<h3>Lista de Classes registradas
+
+    <a class="btn btn-primary btn-sm float-end" href="{% url 'cadastrar-classe' %}" title="Adicionar Classes"><i
+            class="bi bi-plus-circle"></i></a>
+</h3>
+<hr>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <tr>
+            <th>Nome</th>
+            <th>Nível</th>
+            <th>Descrição</th>
+            <th>Opções</th>
+        </tr>
+        {% for classe in object_list %}
+        <tr>
+            {% if classe %}
+            <td>{{ classe.nome }}</td>
+            <td>{{ classe.nivel }}</td>
+            <td>{{ classe.descricao }}</td>
+            {% else %}
+            &nbsp;
+            {% endif %}
+            <td>
+                <a href="{% url 'editar-classe' classe.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
+                        class="bi bi-pencil"></i></a>
+                <a href="{% url 'excluir-classe' classe.pk %}" class="btn btn-danger btn-sm" title="Excluir"><i
+                        class="bi bi-trash"></i></a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="3">Nenhuma classe registrada.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
+{% block destaque %}
+
+{% endblock %}

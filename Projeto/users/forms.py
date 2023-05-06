@@ -5,6 +5,11 @@ from django.core.exceptions import ValidationError
 
 class UsuarioForm(UserCreationForm):
     email = forms.EmailField(max_length= 100)
+    user_type = forms.ChoiceField(choices=[
+        ('student', 'Estudante'), ('professor', 'Professor')],
+        label='Tipo de usuário',
+        help_text=("Selecione o tipo de usuário que está sendo criado."),
+        )
 
     class Meta:
         model = User

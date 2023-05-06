@@ -8,18 +8,15 @@
 
 {% block conteudo %}
 <h3>Página Inicial</h3>
-<hr class="featurette-divider border-primary">
+<hr class="featurette-divider border-danger">
 {% if request.user.is_authenticated %}
-<p>Bem vindo, <a href="{% url 'atualizar-dados' %}" class="text-info">{{ request.user }}</a></p>
+<p>Bem vindo, <a href="{% url 'atualizar-dados' %}" class="text-danger">{{ request.user }}</a></p>
+<p>Aqui estão as atividades que você tem para fazer durante essa semana</p>
 
 {% else %}
-<p>Bem vindo, ao site de registro de atividades!</p>
+<p>Bem vindo, ao Ambiente Virtual de Aprendizado!</p>
 
 {% endif %}
-<div class="container">
-
-</div>
-
 
 <!-- /END THE FEATURETTES -->
 

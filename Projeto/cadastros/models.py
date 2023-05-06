@@ -1,25 +1,18 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth.models import User
 
 # Create your models here.
-
-class Campo(models.Model):
-    nome = models.CharField(max_length= 50, null= False)
-    descricao = models.CharField(max_length= 255, verbose_name= "Descrição")
-
-    def __str__(self):
-        return "{} ({})".format(self.nome, self.descricao)
 
 class Atividade(models.Model):
     numero = models.IntegerField(verbose_name="Número")
     descricao = models.CharField(max_length= 255, verbose_name= "Descrição")
     pontos = models.DecimalField(decimal_places = 1, max_digits = 4)
     detalhes = models.CharField(max_length= 100, blank = True, null = True)
-
-    campo = models.ForeignKey(Campo, on_delete= models.PROTECT)
+    arquivo = models.FileField(upload_to= 'files/')
 
     def __str__(self):
-        return "{} - {} ({})".format(self.numero, self.descricao, self.campo.nome)
+        return "{} - {} ({})".format(self.numero, self.descricao)
 
 class Status(models.Model):
     nome = models.CharField(max_length= 50)
@@ -35,14 +28,6 @@ class Classe(models.Model):
 
     def __str__(self):
         return "{} {} ({})".format(self.nome, self.nivel, self.descricao)
-
-class Campus(models.Model):
-    cidade = models.CharField(max_length= 20)
-    endereco = models.CharField(max_length=150, verbose_name= "Endereço")
-    telefone = models.CharField(max_length=14)
-
-    def __str__(self):
-        return "{}, {} - Tel: ({})".format(self.endereco, self.cidade, self.telefone)
 
 class Progressao(models.Model):
     classe = models.ForeignKey(Classe, on_delete=models.PROTECT, verbose_name= "classe pretendida")
@@ -66,12 +51,15 @@ class Comprovante(models.Model):
     def __str__(self):
         return "[{}] {} - {}/{}".format(self.pk, self.usuario, self.progressao, self.atividade)
 
-class Validacao(models.Model):
-    comprovante = models.ForeignKey(Comprovante, on_delete=models.PROTECT)
-    validado_em = models.DateField(auto_now_add=True)
-    validado_por = models.ForeignKey(User, on_delete= models.PROTECT)
-    quantidade = models.DecimalField(decimal_places= 2, max_digits= 5)
-    justificativa = models.TextField(max_length = 256)
+class Comment(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "[{}] Pontuação: {}/{} por {}".format(self.comprovante.pk, self.quantidade, self.comprovante.quantidade. self.servidor)
+        return self.body
+
+    def get_absolute_url(self):
+        return reverse('comment_detail', kwargs={'pk': self.pk})
+
+

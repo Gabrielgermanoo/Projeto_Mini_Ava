@@ -1,0 +1,58 @@
+{%extends 'paginas/modelo.html' %}
+{% load static %}
+{% block titulo %}
+
+<title>Listar Enquetes</title>
+
+{% endblock %}
+
+{% block conteudo %}
+
+<h3>Lista de Enquetes registradas
+    <a class="btn btn-primary btn-sm float-end" href="{% url 'cadastrar-enquete' %}"><i
+            class="bi bi-plus-circle"></i></a>
+</h3>
+<hr>
+<div class="table-responsive">
+
+    <table class="table table-striped" id="table-list">
+
+        <thead>
+
+            <tr>
+
+
+                <th>Enquete</th>
+
+                <th>Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for enquete in object_list %}
+
+            <tr>
+
+                <td>{{ enquete.enquete }}</td>
+
+                <td>
+
+                    <a href="{% url 'editar-enquete' enquete.pk %}" class="btn btn-warning btn-sm" title="Editar"><i
+                            class="bi bi-pencil"></i></a>
+                    <a href="{% url 'excluir-enquete' enquete.pk %}" class="btn btn-danger btn-sm"
+                        title="Excluir"><i class="bi bi-trash"></i></a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+
+                <td colspan="3">Nenhuma enquete registrada.</td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+{% block destaque %}
+
+{% endblock %}

@@ -87,7 +87,7 @@ class QuestionCreateTest(TestCase):
     def test_create_question(self):
         response = self.client.post(self.url, data=self.data, follow=True)
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'cadastros/listar-question.html')
+        self.assertTemplateUsed(response, 'cadastros/listar-questoes.html')
         self.assertContains(response, 'Enquete cadastrada com sucesso.')
         self.assertTrue(Question.objects.filter(question_text='Qual sua linguagem de programação favorita?').exists())
 

@@ -1,7 +1,7 @@
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic.list import ListView
 
-from .models import Atividade, Status, Classe, Comprovante, Progressao, Comment
+from .models import Atividade, Status, Classe, Comprovante, Progressao, Comment, Question
 
 from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
@@ -99,6 +99,21 @@ class CommentCreate(CreateView):
         url = super().form_valid(form)  # antes do super o objeto n foi criado
         self.object.save()
         return url
+    
+class QuestionCreate (CreateView):
+    model = Comment
+    fields = ['body']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('listar-questao')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = "Adicionar questão"
+        context['botao'] = "Enviar"
+
+        return context
+    
 
 # Update
 
@@ -188,6 +203,24 @@ class CommentUpdate(UpdateView):
         self.object = get_object_or_404(
             Comment, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
+    
+class QuestionUpdate(UpdateView):
+    login_url = reverse_lazy('login')
+    model = Question
+    fields = ['body']
+    template_name = 'cadastros/form.html'
+    success_url = reverse_lazy('listar-questoes')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['titulo'] = "Editar Questão"
+        context['botao'] = "Salvar"
+
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(
+            Question, pk=self.kwargs['pk'], usuario=self.request.user)
+        return self.object
 
 # Delete
 
@@ -240,6 +273,17 @@ class CommentDelete(DeleteView):
         self.object = get_object_or_404(
             Comment, pk=self.kwargs['pk'], usuario=self.request.user)
         return self.object
+    
+class QuestionDelete(DeleteView):
+    login_url = reverse_lazy('login')
+    model = Question
+    template_name = 'cadastros/form-excluir.html'
+    success_url = reverse_lazy('listar-questao')
+
+    def get_object(self, queryset=None):
+        self.object = get_object_or_404(
+            Question, pk=self.kwargs['pk'], usuario=self.request.user)
+        return self.object
 
 # list
 
@@ -287,4 +331,13 @@ class CommentList(ListView):
 
     def get_queryset(self):
         self.object_list = Comment.objects.filter(usuario=self.request.user)
+        return self.object_list
+    
+class QuestionList(ListView):
+    login_url = reverse_lazy('login')
+    model = Question
+    template_name = 'cadastros/listas/enquete.html'
+
+    def get_queryset(self):
+        self.object_list = Question.objects.filter(usuario=self.request.user)
         return self.object_list

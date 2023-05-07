@@ -62,4 +62,15 @@ class Comment(models.Model):
     def get_absolute_url(self):
         return reverse('comment_detail', kwargs={'pk': self.pk})
 
+class Question(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.body
+
+    def get_absolute_url(self):
+        return reverse('question_detail', kwargs={'pk': self.pk})
+
 

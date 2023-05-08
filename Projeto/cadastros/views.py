@@ -101,7 +101,7 @@ class CommentCreate(CreateView):
         return url
     
 class QuestionCreate (CreateView):
-    model = Comment
+    model = Question
     fields = ['body']
     template_name = 'cadastros/form.html'
     success_url = reverse_lazy('listar-questao')

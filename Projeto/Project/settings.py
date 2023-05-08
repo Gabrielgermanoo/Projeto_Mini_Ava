@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'cadastros.apps.CadastrosConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
-    'django_cleanup.apps.CleanupConfig'
+    'django_cleanup.apps.CleanupConfig',
+    'django_extensions'
 ]
 
 # Crispy Forms
@@ -62,6 +63,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'Project.urls'
+
+GRAPH_MODELS = {
+    'all_applications': True,
+    'group_models': True,
+    'app_labels': ('app', 'cadastros', 'users'),
+}
 
 TEMPLATES = [
     {

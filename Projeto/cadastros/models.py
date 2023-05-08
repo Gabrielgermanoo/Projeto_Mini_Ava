@@ -6,13 +6,13 @@ from django.contrib.auth.models import User
 
 class Atividade(models.Model):
     numero = models.IntegerField(verbose_name="Número")
-    descricao = models.CharField(max_length= 255, verbose_name= "Descrição")
-    pontos = models.DecimalField(decimal_places = 1, max_digits = 4)
-    detalhes = models.CharField(max_length= 100, blank = True, null = True)
-    arquivo = models.FileField(upload_to= 'files/')
+    descricao = models.CharField(max_length=255, verbose_name="Descrição")
+    pontos = models.DecimalField(decimal_places=1, max_digits=4)
+    detalhes = models.CharField(max_length=100, blank=True, null=True)
+    arquivo = models.FileField(upload_to='files/')
 
     def __str__(self):
-        return "{} - {} ({})".format(self.numero, self.descricao)
+        return "{} - {} ({})".format(self.numero, self.descricao, self.pontos)
 
 class Status(models.Model):
     nome = models.CharField(max_length= 50)

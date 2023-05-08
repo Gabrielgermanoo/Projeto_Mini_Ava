@@ -5,6 +5,7 @@ from .models import Atividade, Status, Classe, Comprovante, Progressao, Comment,
 
 from django.urls import reverse_lazy
 from braces.views import GroupRequiredMixin
+from django import forms
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,7 +16,7 @@ class AtividadeCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = Atividade
     fields = ['numero', 'descricao', 'pontos', 'detalhes', 'arquivo']
-    template_name = 'cadastros/form.html'
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('listar-atividades')
 
     def get_context_data(self, **kwargs):
@@ -25,6 +26,11 @@ class AtividadeCreate(LoginRequiredMixin, CreateView):
         context['botao'] = "Cadastrar"
 
         return context
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        url = super().form_valid(form)  # antes do super o objeto n foi criado
+        return url
+    
 
 
 class StatusCreate(LoginRequiredMixin, CreateView):
@@ -132,7 +138,6 @@ class AtividadeUpdate(LoginRequiredMixin, UpdateView):
 
         return context
 
-
 class StatusUpdate(LoginRequiredMixin, UpdateView):
     login_url = reverse_lazy('login')
     model = Status
@@ -229,6 +234,11 @@ class AtividadeDelete(LoginRequiredMixin, DeleteView):
     model = Atividade
     template_name = 'cadastros/form-excluir.html'
     success_url = reverse_lazy('listar-atividades')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = forms.Form() # replace with your actual form
+        return context
 
 
 class StatusDelete(LoginRequiredMixin, DeleteView):

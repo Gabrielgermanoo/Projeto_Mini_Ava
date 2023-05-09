@@ -89,6 +89,36 @@ class ClasseDeleteTestCase(TestCase):
         self.assertFalse(Classe.objects.filter(pk=self.classe.pk).exists())
 
 
+####### TESTES DE PROGRESSÃO #######
+"""
+------- Exemplo que não funciona -------
+
+python manage.py test cadastros.tests.ProgressaoCreateTest
+
+class ProgressaoCreateTestCase(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('cadastro-progressao')
+        self.user = User.objects.create_user(username='testuser', password='12345')
+
+    def test_progressao_create(self):
+        self.client.login(username='testuser', password='12345')
+        data = {
+            'classe': '1ª classe',
+            'data_inicial': '2023-01-01',
+            'data_final': '2023-01-31',
+            'observacao': 'Progressão de teste'
+        }
+        response = self.client.post(self.url, data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, reverse('listar-progressao'))
+        progressao = Progressao.objects.last()
+        self.assertEqual(progressao.usuario, self.user)
+        self.assertEqual(progressao.observacao, 'Progressão de teste (Observation)')
+"""
+
+
 
 
 

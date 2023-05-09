@@ -1,9 +1,10 @@
-from datetime import date
+
 from django.test import Client, TestCase
 from django.urls import reverse, reverse_lazy
 from django.contrib.auth.models import User
 from django.core.files.uploadedfile import SimpleUploadedFile
-from .models import Atividade, Classe, Question, Status, Progressao, Comment, Comprovante
+
+from .models import Classe, Progressao, Status, Progressao, Comment
 
 
 
@@ -74,30 +75,20 @@ class CommentModelTest(TestCase):
         expected = 'Test comment'
         self.assertEqual(str(comment), expected)
 
-class QuestionCreateTest(TestCase):
+class ClasseDeleteTestCase(TestCase):
     def setUp(self):
-        self.client = Client()
-        self.user = User.objects.create_user(username='testuser', password='testpass')
-        self.client.login(username='testuser', password='testpass')
-        self.url = reverse_lazy('cadastrar-enquete')
-        self.data = {
-            'question_text': 'Qual sua linguagem de programação favorita?',
-        }
+        self.user = User.objects.create_user(username='user', password='password')
+        self.client.login(username='user', password='password')
+        self.classe = Classe.objects.create(nome='Classe Teste', nivel=1, descricao='Descrição da Classe Teste')
 
-    def test_create_question(self):
-        response = self.client.post(self.url, data=self.data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'cadastros/listar-questoes.html')
-        self.assertContains(response, 'Enquete cadastrada com sucesso.')
-        self.assertTrue(Question.objects.filter(question_text='Qual sua linguagem de programação favorita?').exists())
+    def test_excluir_classe(self):
+        response = self.client.post(reverse_lazy('excluir-classe', kwargs={'pk': self.classe.pk}))
 
-    def test_create_question_invalid_data(self):
-        self.data['question_text'] = ''
-        response = self.client.post(self.url, data=self.data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'cadastros/form.html')
-        self.assertFormError(response, 'form', 'question_text', 'Este campo é obrigatório.')
-        self.assertFalse(Question.objects.filter(question_text='').exists())
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, reverse_lazy('listar-classes'))
+        self.assertFalse(Classe.objects.filter(pk=self.classe.pk).exists())
+
+
 
 
 

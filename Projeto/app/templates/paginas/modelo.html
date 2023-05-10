@@ -28,7 +28,7 @@
 
 <body>
     {% block menu %}
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #1E87BB;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-gradiente" style="background-color: #1E87BB;">
         <div class="container">
             <a class="navbar-brand" href="{% url 'index' %}"> <img src="{% static 'asserts/img/logoee.png' %}"
                     class="img-fluid" style="height: 45px; width: 65px;"></a>
@@ -59,9 +59,9 @@
                             <li><a class="dropdown-item" href="{% url 'listar-progressao' %}"><i
                                         class="bi bi-4-square"></i>
                                     Progressão</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'listar-comentario' %}"><i
+                            <li><a class="dropdown-item" href="{% url 'listar-questao' %}"><i
                                         class="bi bi-5-square"></i>
-                                    Comentários</a></li>
+                                    Questões</a></li>
                         </ul>
                     </li>
                     {% endif %}
@@ -80,14 +80,13 @@
                         <li><a class="dropdown-item" href="{% url 'atualizar-dados' %}"><i
                                     class="bi bi-info-circle"></i>
                                 Meus dados</a></li>
-                        <li><a class="dropdown-item" href="{% url 'listar-atividades' %}"><i class="bi bi-lock"></i>
+                        <li><a class="dropdown-item" href="{% url 'change_password' %}"><i class="bi bi-lock"></i>
                                 Alterar senha</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i>
-                                Sair</a></li>
-                    </ul>
+                        <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}"><i class="bi bi-box-arrow-right"></i>
+                        Sair</a></li>
+                </ul>
                 </li>
                 {% else %}
                 <ul class="navbar-nav">
@@ -117,7 +116,7 @@
     {% block footer %}
     <div class="container">
         <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom border-danger pb-3 mb-3">
+            <ul class="nav justify-content-center border-bottom border-primary pb-3 mb-3">
             </ul>
             <p class="text-center text-muted">&copy; Desenvolvido por Gabriel Germano e Matheus Moreira</p>
         </footer>

@@ -9,18 +9,58 @@
 
 {% block conteudo %}
 <h3>Página Inicial</h3>
-<hr class="featurette-divider border-danger">
+<hr class="featurette-divider border-primary">
 {% if request.user.is_authenticated %}
-<p>Bem vindo, <a href="{% url 'atualizar-dados' %}" class="text-danger">{{ request.user }}</a></p>
-<p>Aqui estão as atividades que você tem para fazer durante essa semana</p>
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h5 class="display-12">Bem-vindo ao Ambiente Virtual de Aprendizagem, <a href="{% url 'atualizar-dados' %}" class="text-primary">{{ request.user }}</a></h5>
+        <p class="lead">Aqui você encontra diversas formas de aprender e se desenvolver.</p>
+    </div>
+</div>
 
 {% else %}
-<p>Bem vindo, ao Ambiente Virtual de Aprendizado!</p>
-
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h5 class="display-12">Bem-vindo ao Ambiente Virtual de Aprendizagem</h5>
+        <p class="lead">Aqui você encontra diversas formas de aprender e se desenvolver.</p>
+    </div>
+</div>
 {% endif %}
-
+<!-- Cards -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img width=350 height=230 src="https://www.estudiosite.com.br/img/post/odamCoFC3qoYyZm7NDb55b364d7855d80.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Atividades</h5>
+                    <p class="card-text">Veja a lista de atividades a fazer.</p>
+                    <a href="{% url 'listar-atividades' %}" class="btn btn-primary">Ver mais</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img width=350 height=230 src="https://tomarposse.com/wp-content/uploads/2019/09/11-Super-Dicas-De-Estudo-Para-Colocar-Em-Pr%C3%A1tica-Agora.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Questões </h5>
+                    <p class="card-text">Crie e faça questões para melhorar seu aprendizado.</p>
+                    <a href="{% url 'listar-progressao' %}" class="btn btn-primary">Ver mais</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img width=350 height=230 src="https://fenacon.org.br/wp-content/uploads/2021/04/cursos-online-blog-v01.jpg" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">Progressão</h5>
+                    <p class="card-text">Veja a progressão da sua turma!</p>
+                    <a href="{% url 'listar-questao' %}" class="btn btn-primary">Ver mais</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- /END THE FEATURETTES -->
 
-</div>
 {% endblock %}

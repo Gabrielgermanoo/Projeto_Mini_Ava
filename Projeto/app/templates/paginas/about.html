@@ -10,7 +10,23 @@
 {% endblock %}
 
 {% block conteudo %}
-    <h2>Sobre o Projeto</h2>
-
-    <p>Página destinada para descrever o Projeto</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-6">
+            <h1>Sobre nosso Ambiente Virtual de Aprendizagem</h1>
+            <p>Nossa plataforma foi desenvolvida para oferecer uma experiência de aprendizagem envolvente e interativa
+                para estudantes de todas as idades e origens. Acreditamos que aprender deve ser divertido, acessível e
+                personalizado às necessidades de cada aluno.</p>
+            <p>Nossa equipe de educadores e desenvolvedores experientes trabalhou incansavelmente para criar uma
+                plataforma que combina a tecnologia mais recente com metodologias de ensino comprovadas para garantir
+                que nossos alunos obtenham o máximo de sua experiência de aprendizado.</p>
+            <p>Se você é um estudante procurando melhorar suas notas, um educador procurando ferramentas de ensino
+                inovadoras ou um pai procurando uma maneira segura e eficaz de ajudar seu filho a aprender em casa,
+                nosso ambiente virtual de aprendizagem tem tudo que você precisa para ter sucesso.</p>
+        </div>
+        <div class="col-md-6">
+            <img src="{% static 'asserts/img/about.jpg' %}" class="img-fluid rounded" alt="Sobre Nós">
+        </div>
+    </div>
+</div>
 {% endblock %}

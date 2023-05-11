@@ -37,7 +37,7 @@ class StatusCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = Status
     fields = ['nome', 'descricao']
-    template_name = 'cadastros/form.html'
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('listar-status')
 
     def get_context_data(self, **kwargs):
@@ -53,7 +53,7 @@ class ClasseCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = Classe
     fields = ['nome', 'nivel', 'descricao']
-    template_name = 'cadastros/form.html'
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('listar-classes')
 
     def get_context_data(self, **kwargs):
@@ -68,7 +68,7 @@ class ProgressaoCreate(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy('login')
     model = Progressao
     fields = ['classe', 'data_inicial', 'data_final', 'observacao']
-    template_name = 'cadastros/form.html'
+    template_name = 'cadastros/form-upload.html'
     success_url = reverse_lazy('listar-progressao')
 
     def get_context_data(self, **kwargs):
@@ -89,8 +89,8 @@ class ProgressaoCreate(LoginRequiredMixin, CreateView):
 class CommentCreate(CreateView):
     model = Comment
     fields = ['body']
-    template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-comentario')
+    template_name = 'cadastros/form-upload.html'
+    success_url = reverse_lazy('listar-questao')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -183,13 +183,15 @@ class CommentUpdate(UpdateView):
     model = Comment
     fields = ['body']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-comentarios')
+    success_url = reverse_lazy('listar-questao')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         context['titulo'] = "Editar Comentário"
         context['botao'] = "Salvar"
+
+        return context
 
     def get_object(self, queryset=None):
         self.object = get_object_or_404(
@@ -247,7 +249,7 @@ class CommentDelete(DeleteView):
     login_url = reverse_lazy('login')
     model = Comment
     template_name = 'cadastros/form-excluir.html'
-    success_url = reverse_lazy('listar-comentario')
+    success_url = reverse_lazy('listar-questao')
 
     def get_object(self, queryset=None):
         self.object = get_object_or_404(

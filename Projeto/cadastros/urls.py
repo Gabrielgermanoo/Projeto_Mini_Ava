@@ -22,7 +22,7 @@ urlpatterns = [
     path('excluir/status/<int:pk>', StatusDelete.as_view(), name= 'excluir-status'),
     path('excluir/classe/<int:pk>', ClasseDelete.as_view(), name= 'excluir-classe'),
     path('excluir/progressao/<int:pk>', ProgressaoDelete.as_view(), name= 'excluir-progressao'),
-    path('excluir/questao/<int:pk>', CommentDelete.as_view(), name='excluir-comentario'),
+    path('excluir/questao/<int:pk>', CommentDelete.as_view(), name='excluir-questao'),
 
     path('listar/atividades/', AtividadeList.as_view(), name= 'listar-atividades'),
     path('listar/status/', StatusList.as_view(), name= 'listar-status'),

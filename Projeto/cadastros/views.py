@@ -90,7 +90,7 @@ class CommentCreate(CreateView):
     model = Comment
     fields = ['body']
     template_name = 'cadastros/form-upload.html'
-    success_url = reverse_lazy('listar-questao')
+    success_url = reverse_lazy('listar-comentario')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -183,7 +183,7 @@ class CommentUpdate(UpdateView):
     model = Comment
     fields = ['body']
     template_name = 'cadastros/form.html'
-    success_url = reverse_lazy('listar-questao')
+    success_url = reverse_lazy('listar-comentario')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -249,7 +249,7 @@ class CommentDelete(DeleteView):
     login_url = reverse_lazy('login')
     model = Comment
     template_name = 'cadastros/form-excluir.html'
-    success_url = reverse_lazy('listar-questao')
+    success_url = reverse_lazy('listar-comentario')
 
     def get_object(self, queryset=None):
         self.object = get_object_or_404(
